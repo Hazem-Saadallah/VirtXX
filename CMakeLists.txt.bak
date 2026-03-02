@@ -1,0 +1,95 @@
+include(ExternalProject)
+include(FetchContent)
+find_program(MESON_EXE meson REQUIRED)
+find_program(NINJA_EXE ninja REQUIRED)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.31)
+
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_BUILD_TOOL make)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Debug)
+
+set(STAGING_DIR ${CMAKE_CURRENT_BINARY_DIR}/staging)
+set(CMAKE_INSTALL_PREFIX ${STAGING_DIR})
+set(LOCAL_PKG_CONFIG_PATH "${STAGING_DIR}/lib/pkgconfig:${STAGING_DIR}/lib64/pkgconfig")
+
+project(vmm LANGUAGES C CXX)
+
+set(BIN_NAME bin.out)
+set(COMMON_COMPILE_OPTIONS -Wall -Wextra)
+set(INCLUDE_DIR
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/extern/libxml2/include
+)
+
+set(COMMON_LIBS
+  pugixml
+  LibXml2
+  LibVirt
+)
+
+set(SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cxx
+)
+
+FetchContent_Declare(pugixml
+  URL https://github.com/zeux/pugixml/releases/download/v1.15/pugixml-1.15.tar.gz
+  DOWNLOAD_EXTRACT_TIMESTAMP true
+  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/pugixml
+  BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/extern/pugixml
+)
+FetchContent_MakeAvailable(pugixml)
+
+
+ExternalProject_Add(libxml2_ext
+  URL https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.1.tar.xz
+  CMAKE_ARGS 
+    -DCMAKE_INSTALL_PREFIX=${STAGING_DIR}
+    -DCMAKE_BUILD_TYPE=Debug
+    -DLIBXML2_WITH_PYTHON=OFF
+    -DBUILD_SHARED_LIBS=ON
+)
+add_library(LibXml2 SHARED IMPORTED GLOBAL)
+set_target_properties(LibXml2 PROPERTIES 
+  IMPORTED_LOCATION "${STAGING_DIR}/lib/libxml2.so"
+  INTERFACE_INCLUDE_DIRECTORIES "${STAGING_DIR}/include/libxml2"
+)
+add_dependencies(LibXml2 libxml2_ext)
+
+ExternalProject_Add(libvirt_ext
+  URL https://download.libvirt.org/libvirt-12.0.0.tar.xz
+
+  DEPENDS libxml2_ext
+  PREFIX         ${CMAKE_CURRENT_BINARY_DIR}/extern/libvirt
+  SOURCE_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/extern/libvirt
+  BINARY_DIR     ${CMAKE_CURRENT_BINARY_DIR}/extern/libvirt
+  INSTALL_DIR    ${STAGING_DIR}
+
+  INSTALL_COMMAND ${NINJA_EXE} -C <BINARY_DIR> install
+  CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:$ENV{PKG_CONFIG_PATH}"
+  ${MESON_EXE} setup <BINARY_DIR> <SOURCE_DIR>
+    --prefix=<INSTALL_DIR>
+    --libdir=lib
+    -Ddriver_qemu=enabled
+    -Dtests=enabled
+    -Ddocs=enabled
+
+  BUILD_COMMAND ${NINJA_EXE} -C <BINARY_DIR>
+)
+add_library(LibVirt SHARED IMPORTED GLOBAL)
+set_target_properties(LibVirt PROPERTIES 
+  IMPORTED_LOCATION "${STAGING_DIR}/lib/libvirt.so"
+  INTERFACE_INCLUDE_DIRECTORIES "${STAGING_DIR}/include"
+)
+add_dependencies(LibVirt libvirt_ext)
+
+include_directories(${INCLUDE_DIR})
+
+add_executable(${BIN_NAME} ${SOURCES})
+target_link_libraries(${BIN_NAME} PRIVATE ${COMMON_LIBS})
+target_compile_options(${BIN_NAME} PRIVATE ${COMMON_COMPILE_OPTIONS})
+
