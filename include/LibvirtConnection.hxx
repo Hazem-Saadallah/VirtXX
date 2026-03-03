@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ErrMsg.hxx>
 #include <vector>
+#include <ErrMsg.hxx>
 #include <libvirt/libvirt.h>
 #include <datatypes.hxx>
 #include <ErrorBlock.hxx>
