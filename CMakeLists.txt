@@ -2,6 +2,8 @@ include(FetchContent)
 CMAKE_MINIMUM_REQUIRED(VERSION 3.31)
 project(virtxx LANGUAGES C CXX)
 
+option(VIRTXX_BUILD_TESTS "Build the main.cxx test executable" OFF)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -43,5 +45,7 @@ FetchContent_MakeAvailable(pugixml)
 target_link_libraries(${PROJECT_NAME} PUBLIC ${COMMON_LIBS})
 target_compile_options(${PROJECT_NAME} PRIVATE ${COMMON_COMPILE_OPTIONS})
 
-add_executable(${VIRTXX_BIN_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cxx)
-target_link_libraries(${VIRTXX_BIN_NAME} PRIVATE ${PROJECT_NAME})
+if(VIRTXX_BUILD_TESTS)
+  add_executable(${VIRTXX_BIN_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cxx)
+  target_link_libraries(${VIRTXX_BIN_NAME} PRIVATE ${PROJECT_NAME})
+endif()
