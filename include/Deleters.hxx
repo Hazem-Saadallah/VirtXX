@@ -18,4 +18,14 @@ namespace Deleters {
   public:
     void operator()(virErrorPtr error_ptr) const;
   };
+
+  class _LibvirtStoragePoolPtrDeleter {
+  public:
+    void operator()(virStoragePoolPtr storage_pool_ptr) const;
+  };
+
+  class _LibvirtStorageVolumePtrDeleter {
+  public:
+    void operator()(virStorageVolPtr storage_volume_ptr) const;
+  };
 }

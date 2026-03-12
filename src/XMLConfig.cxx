@@ -1,0 +1,39 @@
+#include <string>
+#include <sstream>
+#include <pugixml.hpp>
+#include <XMLConfig.hxx>
+
+std::string XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
+  pugi::xml_document document;
+  // pugi::xml_parse_result result = document.load_string(basic_storage_pool.c_str());
+  pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_pool.xml");
+  /* NOTE: Add error handling */
+
+  document.child("pool").attribute("type").set_value(type);
+  document.child("pool").child("name").text().set(name);
+  document.child("pool").child("target").child("path").text().set(target_path);
+
+  std::ostringstream oss;
+  document.save(oss);
+  std::string str_val = oss.str();
+  return str_val;
+}
+
+std::string XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
+  pugi::xml_document document;
+  // pugi::xml_parse_result result = document.load_string(basic_storage_volume.c_str());
+  pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_volume.xml");
+  /* NOTE: Add error handling */
+
+  document.child("volume").attribute("type").set_value(type);
+  document.child("volume").child("name").text().set(name);
+  document.child("volume").child("capacity").attribute("unit").set_value(capacity_unit);
+  document.child("volume").child("capacity").text().set(capacity);
+  document.child("volume").child("allocation").text().set(allocation);
+  document.child("volume").child("target").child("format").attribute("type").set_value(target_format_type);
+
+  std::ostringstream oss;
+  document.save(oss);
+  std::string str_val = oss.str();
+  return str_val;
+}

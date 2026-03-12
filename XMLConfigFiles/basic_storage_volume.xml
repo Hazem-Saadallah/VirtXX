@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<volume type=''>
+  <name></name>
+  <capacity unit=""></capacity>
+  <allocation></allocation>
+  <target>
+    <format type=''/>
+  </target>
+</volume>
