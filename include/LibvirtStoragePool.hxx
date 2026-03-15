@@ -25,6 +25,7 @@ public:
   explicit operator bool() const;
   [[nodiscard]] bool is_active();
   void activate(std::vector<virStoragePoolCreateFlags> flags);
+  [[nodiscard]] bool is_auto_start();
   [[nodiscard]] bool is_persistent();
   void make_persistent(std::vector<virStoragePoolBuildFlags> flags);
 

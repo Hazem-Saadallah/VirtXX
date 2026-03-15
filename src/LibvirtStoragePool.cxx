@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 #include <numeric>
 #include <functional>
 #include <libvirt/libvirt.h>
@@ -30,6 +31,14 @@ void _LibvirtStoragePool::activate(std::vector<virStoragePoolCreateFlags> flags)
   REPORT_AND_RETURN_IF_NULL_HANDLE();
   std::int32_t result = virStoragePoolCreate(m_Handle.get(), std::accumulate(flags.begin(), flags.end(), 0, std::bit_or<std::uint64_t>()));
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result,);
+}
+
+[[nodiscard]] bool _LibvirtStoragePool::is_auto_start() {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(false);
+  std::int32_t autostart{0};
+  std::int32_t result = virStoragePoolGetAutostart(get_handle(), &autostart);
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, false);
+  return autostart;
 }
 
 bool _LibvirtStoragePool::is_persistent() {
