@@ -41,6 +41,12 @@ void _LibvirtStoragePool::activate(std::vector<virStoragePoolCreateFlags> flags)
   return autostart;
 }
 
+void _LibvirtStoragePool::set_auto_start(bool auto_start) {
+  REPORT_AND_RETURN_IF_NULL_HANDLE();
+  std::int32_t result = virStoragePoolSetAutostart(get_handle(), static_cast<std::int32_t>(auto_start));
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, );
+}
+
 bool _LibvirtStoragePool::is_persistent() {
   REPORT_AND_RETURN_IF_NULL_HANDLE(false);
   std::int32_t result = virStoragePoolIsPersistent(m_Handle.get());
