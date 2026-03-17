@@ -1,5 +1,6 @@
 #pragma once
 
+#include <XMLConfig.hxx>
 #include <LibvirtConnection.hxx>
 #include <LibvirtDomain.hxx>
 #include <datatypes.hxx>
@@ -15,4 +16,6 @@ namespace virtxx {
   typedef _datatype::_DomainList DomainList;
   typedef _datatype::_StoragePoolList StoragePoolList;
   typedef _datatype::_StorageVolumeList StorageVolumeList;
+
+  namespace XMLConfig = ::_XMLConfig;
 }

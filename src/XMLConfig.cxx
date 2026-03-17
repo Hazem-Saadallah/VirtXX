@@ -3,7 +3,7 @@
 #include <pugixml.hpp>
 #include <XMLConfig.hxx>
 
-std::string XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
+std::string _XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_pool.c_str());
   pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_pool.xml");
@@ -19,7 +19,7 @@ std::string XMLConfig::BasicStoragePool(std::string name, std::string target_pat
   return str_val;
 }
 
-std::string XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
+std::string _XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_volume.c_str());
   pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_volume.xml");
