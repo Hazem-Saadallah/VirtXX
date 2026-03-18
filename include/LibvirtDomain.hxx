@@ -18,12 +18,10 @@ private:
 public:
   _LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, virDomainPtr domain_ptr);
   ~_LibvirtDomain();
-
   _LibvirtDomain(_LibvirtDomain &&) noexcept = default;
   _LibvirtDomain &operator=(_LibvirtDomain &&) noexcept = default;
-
-  _LibvirtDomain(const _LibvirtDomain &) = delete;
-  _LibvirtDomain &operator=(const _LibvirtDomain &) = delete;
+  _LibvirtDomain(const _LibvirtDomain &) = default;
+  _LibvirtDomain &operator=(const _LibvirtDomain &) = default;
 
   explicit operator bool() const;
 

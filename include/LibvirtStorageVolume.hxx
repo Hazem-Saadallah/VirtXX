@@ -24,8 +24,8 @@ public:
   ~_LibvirtStorageVolume();
   _LibvirtStorageVolume(_LibvirtStorageVolume &&) noexcept = default;
   _LibvirtStorageVolume &operator=(_LibvirtStorageVolume &&) noexcept = default;
-  _LibvirtStorageVolume(const _LibvirtStorageVolume &) = delete;
-  _LibvirtStorageVolume &operator=(const _LibvirtStorageVolume &) = delete;
+  _LibvirtStorageVolume(const _LibvirtStorageVolume &) = default;
+  _LibvirtStorageVolume &operator=(const _LibvirtStorageVolume &) = default;
 
   explicit operator bool() const;
 

@@ -23,8 +23,8 @@ public:
   ~_LibvirtConnection();
   _LibvirtConnection(_LibvirtConnection &&) noexcept = default;
   _LibvirtConnection &operator=(_LibvirtConnection &&) noexcept = default;
-  _LibvirtConnection(const _LibvirtConnection &) = delete;
-  _LibvirtConnection &operator=(const _LibvirtConnection &) = delete;
+  _LibvirtConnection(const _LibvirtConnection &) = default;
+  _LibvirtConnection &operator=(const _LibvirtConnection &) = default;
 
   explicit operator bool() const;
 

@@ -16,11 +16,10 @@ private:
 public:
   _LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
   ~_LibvirtStoragePool();
-
   _LibvirtStoragePool(_LibvirtStoragePool &&) noexcept = default;
   _LibvirtStoragePool &operator=(_LibvirtStoragePool &&) noexcept = default;
-  _LibvirtStoragePool(const _LibvirtStoragePool &) = delete;
-  _LibvirtStoragePool &operator=(const _LibvirtStoragePool &) = delete;
+  _LibvirtStoragePool(const _LibvirtStoragePool &) = default;
+  _LibvirtStoragePool &operator=(const _LibvirtStoragePool &) = default;
 
   explicit operator bool() const;
 
