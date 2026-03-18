@@ -12,7 +12,7 @@
 class _LibvirtConnection {
 friend _LibvirtDomain;
 private:
-  _datatype::_LibvirtInternalConnectionPtr m_ConnectionPtr;
+  _datatype::_LibvirtInternalConnectionPtr m_Handle;
   _ErrorBlock m_LastError;
 
   void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg);

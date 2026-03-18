@@ -3,10 +3,10 @@
 #include <LibvirtStorageVolume.hxx>
 
 _LibvirtStorageVolume::_LibvirtStorageVolume(_LibvirtConnectionCreationKey, virStorageVolPtr storage_volume_ptr)
-: m_Handle(storage_volume_ptr), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error){}
+: m_Handle(storage_volume_ptr, Deleters::_LibvirtStorageVolumePtrDeleter()), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error){}
 
 _LibvirtStorageVolume::_LibvirtStorageVolume(_LibvirtStoragePoolCreationKey, virStorageVolPtr storage_volume_ptr)
-: m_Handle(storage_volume_ptr), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error){}
+: m_Handle(storage_volume_ptr, Deleters::_LibvirtStorageVolumePtrDeleter()), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error){}
 
 _LibvirtStorageVolume::~_LibvirtStorageVolume() = default;
 

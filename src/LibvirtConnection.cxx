@@ -5,28 +5,29 @@
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #include <ErrMsg.hxx>
+#include <Misc.hxx>
 #include <datatypes.hxx>
 #include <LibvirtDomain.hxx>
 #include <LibvirtStoragePool.hxx>
 #include <LibvirtConnection.hxx>
 
-_LibvirtConnection::_LibvirtConnection(virConnectPtr connection_ptr) : m_ConnectionPtr(connection_ptr) { }
+_LibvirtConnection::_LibvirtConnection(virConnectPtr connection_ptr) : m_Handle(connection_ptr, Deleters::_LibvirtConnectionPtrDeleter()) { }
 _LibvirtConnection::_LibvirtConnection(const std::string& uri)
-: m_ConnectionPtr(virConnectOpen(uri.c_str())), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error) { }
+: m_Handle(virConnectOpen(uri.c_str()), Deleters::_LibvirtConnectionPtrDeleter()), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error) { }
 
 _LibvirtConnection::~_LibvirtConnection() = default; /* defined in here becasue the unique poiter is initialized here.*/
 
-_LibvirtConnection::operator bool() const { return m_ConnectionPtr != nullptr; }
+_LibvirtConnection::operator bool() const { return m_Handle != nullptr; }
 
 void _LibvirtConnection::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) {
   m_LastError = _ErrorBlock(code, msg);
 }
 
-virConnectPtr _LibvirtConnection::get_handle() const { return m_ConnectionPtr.get(); }
+virConnectPtr _LibvirtConnection::get_handle() const { return m_Handle.get(); }
 
 _ErrorBlock _LibvirtConnection::get_last_error() const { return m_LastError; }
 _datatype::_LibvirtInternalErrorPtr _LibvirtConnection::get_last_libvirt_error() const {
-  return _datatype::_LibvirtInternalErrorPtr(virSaveLastError());
+  return _datatype::_LibvirtInternalErrorPtr(virSaveLastError(), Deleters::_LibvirtErrorPtrDeleter());
 }
 
 std::int32_t _LibvirtConnection::get_domain_count(std::vector<virConnectListAllDomainsFlags> flags) {

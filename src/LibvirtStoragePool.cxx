@@ -1,16 +1,16 @@
 #include <cstdlib>
-#include <iostream>
 #include <numeric>
 #include <functional>
 #include <libvirt/libvirt.h>
 #include <ErrMsg.hxx>
+#include <Misc.hxx>
 #include <datatypes.hxx>
 #include <LibvirtStoragePool.hxx>
 #include <LibvirtConnectionCreationKey.hxx>
 #include <vector>
 
 _LibvirtStoragePool::_LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr)
-: m_Handle(storage_pool_ptr) {
+: m_Handle(storage_pool_ptr, Deleters::_LibvirtStoragePoolPtrDeleter()) {
   m_LastError = storage_pool_ptr
     ? _ErrorBlock(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error)
     : _ErrorBlock(_datatype::ErrorCode_t::LIBVIRT_INTERNAL_ERROR, ErrMsg::libvirt_internal_error);

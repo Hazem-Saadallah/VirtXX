@@ -5,11 +5,12 @@
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #include <ErrMsg.hxx>
+#include <Misc.hxx>
 #include <LibvirtDomain.hxx>
 #include <LibvirtConnectionCreationKey.hxx>
 
 _LibvirtDomain::_LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, virDomainPtr domain_ptr)
-: m_DomainPtr(domain_ptr), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error) { }
+: m_DomainPtr(domain_ptr, Deleters::_LibvirtDomainPtrDeleter()), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error) { }
 
 _LibvirtDomain::~_LibvirtDomain() = default;
 
