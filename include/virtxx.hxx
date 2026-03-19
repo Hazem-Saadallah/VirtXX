@@ -4,6 +4,7 @@
 #include <LibvirtConnection.hxx>
 #include <LibvirtDomain.hxx>
 #include <datatypes.hxx>
+#include <Global.hxx>
 
 namespace virtxx {
   typedef _LibvirtConnection Connection;
@@ -18,4 +19,5 @@ namespace virtxx {
   typedef _datatype::_StorageVolumeList StorageVolumeList;
 
   namespace XMLConfig = ::_XMLConfig;
+  namespace Global = ::Global;
 }
