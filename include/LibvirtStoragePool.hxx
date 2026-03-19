@@ -24,11 +24,15 @@ public:
   explicit operator bool() const;
 
   [[nodiscard]] bool is_active();
-  void activate(std::vector<virStoragePoolCreateFlags> flags);
+  void activate(std::vector<virStoragePoolCreateFlags> flags={});
+  void destroy();
+  void deactivate();
+  void set_activation(bool active);
   [[nodiscard]] bool is_auto_start();
   void set_auto_start(bool auto_start);
   [[nodiscard]] bool is_persistent();
   void make_persistent(std::vector<virStoragePoolBuildFlags> flags);
+  void undefine();
 
   [[nodiscard]] virStoragePoolPtr get_handle() const;
 

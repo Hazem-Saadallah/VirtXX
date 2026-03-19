@@ -6,5 +6,4 @@ void _SilentErrorHandler([[maybe_unused]] void *userData, [[maybe_unused]] virEr
 
 namespace Global {
   void SilenceStderrReporting();
-  
 }

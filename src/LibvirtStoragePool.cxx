@@ -29,11 +29,21 @@ bool _LibvirtStoragePool::is_active() {
 
 void _LibvirtStoragePool::activate(std::vector<virStoragePoolCreateFlags> flags) {
   REPORT_AND_RETURN_IF_NULL_HANDLE();
-  std::int32_t result = virStoragePoolCreate(m_Handle.get(), std::accumulate(flags.begin(), flags.end(), 0, std::bit_or<std::uint64_t>()));
+  std::int32_t result = virStoragePoolCreate(m_Handle.get(), std::accumulate(flags.begin(), flags.end(), static_cast<std::uint64_t>(VIR_STORAGE_POOL_CREATE_NORMAL), std::bit_or<std::uint64_t>()));
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result,);
 }
 
-[[nodiscard]] bool _LibvirtStoragePool::is_auto_start() {
+void _LibvirtStoragePool::destroy() {
+  REPORT_AND_RETURN_IF_NULL_HANDLE();
+  std::int32_t result = virStoragePoolDestroy(get_handle());
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, );
+}
+
+void _LibvirtStoragePool::deactivate() { destroy(); }
+
+void _LibvirtStoragePool::set_activation(bool active) { active? activate():destroy(); }
+
+bool _LibvirtStoragePool::is_auto_start() {
   REPORT_AND_RETURN_IF_NULL_HANDLE(false);
   std::int32_t autostart{0};
   std::int32_t result = virStoragePoolGetAutostart(get_handle(), &autostart);
@@ -57,6 +67,12 @@ bool _LibvirtStoragePool::is_persistent() {
 void _LibvirtStoragePool::make_persistent(std::vector<virStoragePoolBuildFlags> flags) {
   REPORT_AND_RETURN_IF_NULL_HANDLE();
   std::int32_t result = virStoragePoolBuild(m_Handle.get(), std::accumulate(flags.begin(), flags.end(), 0, std::bit_or<std::uint64_t>()));
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result,);
+}
+
+void _LibvirtStoragePool::undefine() {
+  REPORT_AND_RETURN_IF_NULL_HANDLE();
+  std::int32_t result = virStoragePoolUndefine(get_handle());
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result,);
 }
 

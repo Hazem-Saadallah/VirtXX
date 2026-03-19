@@ -3,10 +3,33 @@
 #include <pugixml.hpp>
 #include <XMLConfig.hxx>
 
+const static std::string basic_storage_pool_xml = R"(
+<?xml version="1.0" encoding="UTF-8"?>
+<pool type=''>
+  <name></name>
+  <target>
+    <path></path>
+  </target>
+</pool>
+)";
+
+const static std::string basic_storage_volume_xml = R"(
+<?xml version="1.0" encoding="UTF-8"?>
+<volume type=''>
+  <name></name>
+  <capacity unit=""></capacity>
+  <allocation></allocation>
+  <target>
+    <format type=''/>
+  </target>
+</volume>
+)";
+
+
 std::string _XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_pool.c_str());
-  pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_pool.xml");
+  pugi::xml_parse_result result = document.load_string(basic_storage_pool_xml.c_str());
   /* NOTE: Add error handling */
 
   document.child("pool").attribute("type").set_value(type);
@@ -22,7 +45,7 @@ std::string _XMLConfig::BasicStoragePool(std::string name, std::string target_pa
 std::string _XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_volume.c_str());
-  pugi::xml_parse_result result = document.load_file("../XMLConfigFiles/basic_storage_volume.xml");
+  pugi::xml_parse_result result = document.load_file(basic_storage_volume_xml.c_str());
   /* NOTE: Add error handling */
 
   document.child("volume").attribute("type").set_value(type);

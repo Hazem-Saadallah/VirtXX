@@ -17,6 +17,7 @@ namespace virtxx {
   typedef _datatype::_DomainList DomainList;
   typedef _datatype::_StoragePoolList StoragePoolList;
   typedef _datatype::_StorageVolumeList StorageVolumeList;
+  typedef _datatype::ErrorCode_t ErrorCode;
 
   namespace XMLConfig = ::_XMLConfig;
   namespace Global = ::Global;
