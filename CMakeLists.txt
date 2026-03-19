@@ -15,6 +15,7 @@ set(VIRTXX_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/Deleters.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/ErrorBlock.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/XMLConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Global.cxx
 )
 set(COMMON_LIBS
   PkgConfig::LIBVIRT
