@@ -1,3 +1,4 @@
+#include <cmath>
 #include <cstdlib>
 #include <numeric>
 #include <functional>
@@ -113,6 +114,34 @@ std::string _LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> 
   std::string config = std::string(raw_xml);
   std::free(raw_xml);
   return config;
+}
+
+virStoragePoolInfo _LibvirtStoragePool::get_info() {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(virStoragePoolInfo{});
+  virStoragePoolInfo info;
+  std::int32_t result = virStoragePoolGetInfo(get_handle(), &info);
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, virStoragePoolInfo{});
+  return info;
+}
+
+virStoragePoolState _LibvirtStoragePool::get_state() {
+  virStoragePoolInfo info = get_info();
+  return static_cast<virStoragePoolState>(info.state);
+}
+
+std::double_t _LibvirtStoragePool::get_capacity(SizeType size_type) {
+  std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
+  return static_cast<std::double_t>(get_info().capacity)/div;
+}
+
+std::double_t _LibvirtStoragePool::get_allocated_space(SizeType size_type) {
+  std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
+  return static_cast<std::double_t>(get_info().allocation)/div;
+}
+
+std::double_t _LibvirtStoragePool::get_available_space(SizeType size_type) {
+  std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
+  return static_cast<std::double_t>(get_info().available)/div;
 }
 
 std::int32_t _LibvirtStoragePool::get_num_of_volumes() {

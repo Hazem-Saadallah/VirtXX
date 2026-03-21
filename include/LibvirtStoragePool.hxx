@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+#include <cstddef>
 #include <vector>
 #include <libvirt/libvirt.h>
 #include <ErrorBlock.hxx>
@@ -7,6 +9,15 @@
 #include <LibvirtConnectionCreationKey.hxx>
 
 class _LibvirtStoragePool {
+public:
+  enum class SizeType : std::uint8_t {
+    BYTE=0,
+    KIB,
+    MIB,
+    GIB,
+    TIB
+  };
+
 private:
   _datatype::_LibvirtInternalStoragePoolPtr m_Handle;
   _ErrorBlock m_LastError;
@@ -40,6 +51,12 @@ public:
   [[nodiscard]] std::string get_uuid_string();
   [[nodiscard]] _datatype::_UUIDBytes get_uuid();
   [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={});
+
+  [[nodiscard]] virStoragePoolInfo get_info();
+  [[nodiscard]] virStoragePoolState get_state();
+  [[nodiscard]] std::double_t get_capacity(SizeType size_type=SizeType::MIB);
+  [[nodiscard]] std::double_t get_allocated_space(SizeType size_type=SizeType::MIB);
+  [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB);
 
   [[nodiscard]] std::int32_t get_num_of_volumes();
   [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name);
