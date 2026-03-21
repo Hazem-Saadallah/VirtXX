@@ -77,6 +77,12 @@ void _LibvirtStoragePool::undefine() {
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result,);
 }
 
+void _LibvirtStoragePool::refresh() {
+  REPORT_AND_RETURN_IF_NULL_HANDLE();
+  std::int32_t result = virStoragePoolRefresh(get_handle(), 0);
+  REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, );
+}
+
 void _LibvirtStoragePool::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) {
   m_LastError = _ErrorBlock(code, msg);
 }

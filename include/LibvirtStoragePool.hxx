@@ -25,6 +25,7 @@ private:
   void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg);
 
 public:
+  _LibvirtStoragePool() = default;
   _LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
   ~_LibvirtStoragePool();
   _LibvirtStoragePool(_LibvirtStoragePool &&) noexcept = default;
@@ -44,6 +45,7 @@ public:
   [[nodiscard]] bool is_persistent();
   void make_persistent(std::vector<virStoragePoolBuildFlags> flags);
   void undefine();
+  void refresh();
 
   [[nodiscard]] virStoragePoolPtr get_handle() const;
 
