@@ -7,6 +7,7 @@
 #include <ErrorBlock.hxx>
 #include <LibvirtConnectionCreationKey.hxx>
 #include <LibvirtStoragePoolCreationKey.hxx>
+#include <vector>
 
 class _LibvirtStorageVolume {
 friend _LibvirtStoragePool;
@@ -32,5 +33,9 @@ public:
   [[nodiscard]] std::string get_key();
   [[nodiscard]] std::string get_name();
   [[nodiscard]] std::string get_path();
+  [[nodiscard]] virStorageVolInfo get_info(std::vector<virStorageVolInfoFlags> flags={});
+  [[nodiscard]] virStorageVolType get_type();
+  [[nodiscard]] std::uint64_t get_capacity();
+  [[nodiscard]] std::uint64_t get_allocation();
   [[nodiscard]] std::string get_xml_config();
 };
