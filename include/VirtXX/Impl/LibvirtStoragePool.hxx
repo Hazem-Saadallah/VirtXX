@@ -4,9 +4,9 @@
 #include <cstddef>
 #include <vector>
 #include <libvirt/libvirt.h>
-#include <ErrorBlock.hxx>
-#include <LibvirtStorageVolume.hxx>
-#include <LibvirtConnectionCreationKey.hxx>
+#include <VirtXX/Impl/ErrorBlock.hxx>
+#include <VirtXX/Impl/LibvirtStorageVolume.hxx>
+#include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 
 class _LibvirtStoragePool {
 public:

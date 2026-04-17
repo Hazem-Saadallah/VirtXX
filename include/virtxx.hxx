@@ -1,10 +1,10 @@
 #pragma once
 
-#include <XMLConfig.hxx>
-#include <LibvirtConnection.hxx>
-#include <LibvirtDomain.hxx>
-#include <datatypes.hxx>
-#include <Global.hxx>
+#include <VirtXX/Impl/XMLConfig.hxx>
+#include <VirtXX/Impl/LibvirtConnection.hxx>
+#include <VirtXX/Impl/LibvirtDomain.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/Global.hxx>
 
 namespace virtxx {
   typedef _LibvirtConnection Connection;

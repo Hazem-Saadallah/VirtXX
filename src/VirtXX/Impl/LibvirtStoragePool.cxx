@@ -3,11 +3,11 @@
 #include <numeric>
 #include <functional>
 #include <libvirt/libvirt.h>
-#include <ErrMsg.hxx>
-#include <Misc.hxx>
-#include <datatypes.hxx>
-#include <LibvirtStoragePool.hxx>
-#include <LibvirtConnectionCreationKey.hxx>
+#include <VirtXX/Impl/ErrMsg.hxx>
+#include <VirtXX/Impl/Misc.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/LibvirtStoragePool.hxx>
+#include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 #include <vector>
 
 _LibvirtStoragePool::_LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr)

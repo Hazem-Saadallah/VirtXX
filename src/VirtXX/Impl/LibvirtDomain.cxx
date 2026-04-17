@@ -1,13 +1,13 @@
 #include <string>
 #include <numeric>
 #include <functional>
-#include <datatypes.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
-#include <ErrMsg.hxx>
-#include <Misc.hxx>
-#include <LibvirtDomain.hxx>
-#include <LibvirtConnectionCreationKey.hxx>
+#include <VirtXX/Impl/ErrMsg.hxx>
+#include <VirtXX/Impl/Misc.hxx>
+#include <VirtXX/Impl/LibvirtDomain.hxx>
+#include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 
 _LibvirtDomain::_LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, virDomainPtr domain_ptr)
 : m_DomainPtr(domain_ptr, Deleters::_LibvirtDomainPtrDeleter()), m_LastError(_datatype::ErrorCode_t::NONE, ErrMsg::not_an_error) { }

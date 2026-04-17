@@ -1,4 +1,4 @@
-#include <Deleters.hxx>
+#include <VirtXX/Impl/Deleters.hxx>
 #include <libvirt/libvirt.h>
 
 

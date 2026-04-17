@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include <datatypes.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
 #include <libvirt/libvirt.h>
-#include <ErrorBlock.hxx>
-#include <LibvirtConnectionCreationKey.hxx>
+#include <VirtXX/Impl/ErrorBlock.hxx>
+#include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 
 class _LibvirtConnection;
 

@@ -1,7 +1,7 @@
 #include <functional>
 #include <libvirt/libvirt.h>
-#include <ErrMsg.hxx>
-#include <LibvirtStorageVolume.hxx>
+#include <VirtXX/Impl/ErrMsg.hxx>
+#include <VirtXX/Impl/LibvirtStorageVolume.hxx>
 #include <numeric>
 
 _LibvirtStorageVolume::_LibvirtStorageVolume(_LibvirtConnectionCreationKey, virStorageVolPtr storage_volume_ptr)

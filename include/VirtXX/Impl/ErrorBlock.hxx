@@ -1,6 +1,6 @@
 #pragma once
 
-#include <datatypes.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
 
 class _ErrorBlock {
 private:

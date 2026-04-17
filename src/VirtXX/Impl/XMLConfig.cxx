@@ -1,7 +1,7 @@
 #include <string>
 #include <sstream>
 #include <pugixml.hpp>
-#include <XMLConfig.hxx>
+#include <VirtXX/Impl/XMLConfig.hxx>
 
 const static std::string basic_storage_pool_xml = R"(
 <?xml version="1.0" encoding="UTF-8"?>

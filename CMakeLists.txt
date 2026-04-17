@@ -8,14 +8,20 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(VIRTXX_SOURCES
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/LibvirtConnection.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/LibvirtDomain.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/LibvirtStoragePool.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/LibvirtStorageVolume.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/Deleters.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/ErrorBlock.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/XMLConfig.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/Global.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtConnection.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtDomain.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtStoragePool.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtStorageVolume.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Deleters.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/ErrorBlock.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/XMLConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Global.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Misc.cxx
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Base/BaseConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/StoragePoolConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/StorageVolumeConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Datatype.cxx
 )
 set(COMMON_LIBS
   PkgConfig::LIBVIRT

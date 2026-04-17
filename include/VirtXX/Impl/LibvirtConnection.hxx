@@ -2,12 +2,12 @@
 
 #include <vector>
 #include <libvirt/libvirt.h>
-#include <ErrMsg.hxx>
-#include <datatypes.hxx>
-#include <ErrorBlock.hxx>
-#include <datatypes.hxx>
-#include <LibvirtDomain.hxx>
-#include <LibvirtStoragePool.hxx>
+#include <VirtXX/Impl/ErrMsg.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/ErrorBlock.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/LibvirtDomain.hxx>
+#include <VirtXX/Impl/LibvirtStoragePool.hxx>
 
 class _LibvirtConnection {
 friend _LibvirtDomain;

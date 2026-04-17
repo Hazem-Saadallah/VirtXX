@@ -1,5 +1,5 @@
-#include <datatypes.hxx>
-#include <ErrorBlock.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/ErrorBlock.hxx>
 
 _ErrorBlock::_ErrorBlock(_datatype::ErrorCode_t code, const _datatype::ErrorMsg_t& message) : m_Code(code), m_Message(message) { }
 

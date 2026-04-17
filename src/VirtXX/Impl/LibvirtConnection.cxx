@@ -4,12 +4,12 @@
 #include <functional>
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
-#include <ErrMsg.hxx>
-#include <Misc.hxx>
-#include <datatypes.hxx>
-#include <LibvirtDomain.hxx>
-#include <LibvirtStoragePool.hxx>
-#include <LibvirtConnection.hxx>
+#include <VirtXX/Impl/ErrMsg.hxx>
+#include <VirtXX/Impl/Misc.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/LibvirtDomain.hxx>
+#include <VirtXX/Impl/LibvirtStoragePool.hxx>
+#include <VirtXX/Impl/LibvirtConnection.hxx>
 
 _LibvirtConnection::_LibvirtConnection(virConnectPtr connection_ptr) : m_Handle(connection_ptr, Deleters::_LibvirtConnectionPtrDeleter()) { }
 _LibvirtConnection::_LibvirtConnection(const std::string& uri)

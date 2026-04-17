@@ -3,10 +3,10 @@
 #include <istream>
 #include <string>
 #include <libvirt/libvirt.h>
-#include <datatypes.hxx>
-#include <ErrorBlock.hxx>
-#include <LibvirtConnectionCreationKey.hxx>
-#include <LibvirtStoragePoolCreationKey.hxx>
+#include <VirtXX/Impl/datatypes.hxx>
+#include <VirtXX/Impl/ErrorBlock.hxx>
+#include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
+#include <VirtXX/Impl/LibvirtStoragePoolCreationKey.hxx>
 #include <vector>
 
 class _LibvirtStorageVolume {

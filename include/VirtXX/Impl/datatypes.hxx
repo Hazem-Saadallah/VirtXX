@@ -6,7 +6,7 @@
 #include <vector>
 #include <cstdint>
 #include <libvirt/virterror.h>
-#include <Deleters.hxx>
+#include <VirtXX/Impl/Deleters.hxx>
 class _LibvirtDomain;
 class _LibvirtStoragePool;
 class _LibvirtStorageVolume;
