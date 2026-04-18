@@ -1,6 +1,5 @@
 #pragma once
 
-#include <istream>
 #include <string>
 #include <libvirt/libvirt.h>
 #include <VirtXX/Impl/datatypes.hxx>

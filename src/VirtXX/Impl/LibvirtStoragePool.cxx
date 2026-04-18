@@ -83,20 +83,20 @@ void _LibvirtStoragePool::refresh() {
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, );
 }
 
-void _LibvirtStoragePool::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) {
+void _LibvirtStoragePool::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const {
   m_LastError = _ErrorBlock(code, msg);
 }
 
 [[nodiscard]] virStoragePoolPtr _LibvirtStoragePool::get_handle() const { return m_Handle.get(); }
 
-std::string _LibvirtStoragePool::get_name() {
+std::string _LibvirtStoragePool::get_name() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   const char* buffer = virStoragePoolGetName(get_handle());
   if(!buffer) return std::string();
   return std::string(buffer);
 }
 
-std::string _LibvirtStoragePool::get_uuid_string() {
+std::string _LibvirtStoragePool::get_uuid_string() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   std::string buffer(VIR_UUID_STRING_BUFLEN, '\0');
   std::int32_t result = virStoragePoolGetUUIDString(get_handle(), buffer.data());
@@ -104,7 +104,7 @@ std::string _LibvirtStoragePool::get_uuid_string() {
   return buffer;
 }
 
-_datatype::_UUIDBytes _LibvirtStoragePool::get_uuid() {
+_datatype::_UUIDBytes _LibvirtStoragePool::get_uuid() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(_datatype::_UUIDBytes());
   _datatype::_UUIDBytes buffer = {0};
   std::int32_t result = virStoragePoolGetUUID(get_handle(), buffer.data());
@@ -112,7 +112,7 @@ _datatype::_UUIDBytes _LibvirtStoragePool::get_uuid() {
   return buffer;
 }
 
-std::string _LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> flags) {
+std::string _LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> flags) const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   char *raw_xml = virStoragePoolGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(),
                                                                                0UL, std::bit_or<std::uint64_t>()));
@@ -122,7 +122,7 @@ std::string _LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> 
   return config;
 }
 
-virStoragePoolInfo _LibvirtStoragePool::get_info() {
+virStoragePoolInfo _LibvirtStoragePool::get_info() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(virStoragePoolInfo{});
   virStoragePoolInfo info;
   std::int32_t result = virStoragePoolGetInfo(get_handle(), &info);
@@ -130,41 +130,56 @@ virStoragePoolInfo _LibvirtStoragePool::get_info() {
   return info;
 }
 
-virStoragePoolState _LibvirtStoragePool::get_state() {
+virStoragePoolState _LibvirtStoragePool::get_state() const {
   virStoragePoolInfo info = get_info();
   return static_cast<virStoragePoolState>(info.state);
 }
 
-std::double_t _LibvirtStoragePool::get_capacity(SizeType size_type) {
+std::string _LibvirtStoragePool::get_state_string() const {
+  switch (get_state()) {
+    case VIR_STORAGE_POOL_INACTIVE: return std::string("Inactive"); break;
+    case VIR_STORAGE_POOL_BUILDING: return std::string("Building"); break;
+    case VIR_STORAGE_POOL_RUNNING: return std::string("Running"); break;
+    case VIR_STORAGE_POOL_DEGRADED: return std::string("Degraded"); break;
+    case VIR_STORAGE_POOL_INACCESSIBLE: return std::string("Inaccessible"); break;
+
+# ifdef VIR_ENUM_SENTINELS
+    case VIR_STORAGE_POOL_STATE_LAST: return std::string("Last"); break;
+# endif
+  }
+  return std::string("Unknown");
+}
+
+std::double_t _LibvirtStoragePool::get_capacity(SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().capacity)/div;
 }
 
-std::double_t _LibvirtStoragePool::get_allocated_space(SizeType size_type) {
+std::double_t _LibvirtStoragePool::get_allocated_space(SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().allocation)/div;
 }
 
-std::double_t _LibvirtStoragePool::get_available_space(SizeType size_type) {
+std::double_t _LibvirtStoragePool::get_available_space(SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().available)/div;
 }
 
-std::int32_t _LibvirtStoragePool::get_num_of_volumes() {
+std::int32_t _LibvirtStoragePool::get_num_of_volumes() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::int32_t());
   std::int32_t result = virStoragePoolNumOfVolumes(get_handle());
   REPORT_AND_RETURN_IF_INTERNEL_ERROR(result, std::int32_t());
   return result;
 }
 
-_LibvirtStorageVolume _LibvirtStoragePool::get_volume_by_name(std::string name) {
+_LibvirtStorageVolume _LibvirtStoragePool::get_volume_by_name(std::string name) const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(_LibvirtStorageVolume(_LibvirtStoragePoolCreationKey{}, nullptr));
   virStorageVolPtr result = virStorageVolLookupByName(get_handle(), name.c_str());
   if(!result) return _LibvirtStorageVolume(_LibvirtStoragePoolCreationKey{}, nullptr);
   return _LibvirtStorageVolume(_LibvirtStoragePoolCreationKey{}, result);
 }
 
-_datatype::_StorageVolumeList _LibvirtStoragePool::get_volumes() {
+_datatype::_StorageVolumeList _LibvirtStoragePool::get_volumes() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(_datatype::_StorageVolumeList());
 
   virStorageVolPtr *volumes = nullptr;

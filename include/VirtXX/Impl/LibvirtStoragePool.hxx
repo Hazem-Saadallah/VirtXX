@@ -20,9 +20,9 @@ public:
 
 private:
   _datatype::_LibvirtInternalStoragePoolPtr m_Handle;
-  _ErrorBlock m_LastError;
+  mutable _ErrorBlock m_LastError;
 
-  void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg);
+  void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
 
 public:
   _LibvirtStoragePool() = default;
@@ -49,20 +49,21 @@ public:
 
   [[nodiscard]] virStoragePoolPtr get_handle() const;
 
-  [[nodiscard]] std::string get_name();
-  [[nodiscard]] std::string get_uuid_string();
-  [[nodiscard]] _datatype::_UUIDBytes get_uuid();
-  [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={});
+  [[nodiscard]] std::string get_name() const;
+  [[nodiscard]] std::string get_uuid_string() const;
+  [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
+  [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
 
-  [[nodiscard]] virStoragePoolInfo get_info();
-  [[nodiscard]] virStoragePoolState get_state();
-  [[nodiscard]] std::double_t get_capacity(SizeType size_type=SizeType::MIB);
-  [[nodiscard]] std::double_t get_allocated_space(SizeType size_type=SizeType::MIB);
-  [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB);
+  [[nodiscard]] virStoragePoolInfo get_info() const;
+  [[nodiscard]] virStoragePoolState get_state() const;
+  [[nodiscard]] std::string  get_state_string() const;
+  [[nodiscard]] std::double_t get_capacity(SizeType size_type=SizeType::MIB) const;
+  [[nodiscard]] std::double_t get_allocated_space(SizeType size_type=SizeType::MIB) const;
+  [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB) const;
 
-  [[nodiscard]] std::int32_t get_num_of_volumes();
-  [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name);
-  [[nodiscard]] _datatype::_StorageVolumeList get_volumes();
+  [[nodiscard]] std::int32_t get_num_of_volumes() const;
+  [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name) const;
+  [[nodiscard]] _datatype::_StorageVolumeList get_volumes() const;
 
   [[nodiscard]] _LibvirtStorageVolume create_storage_volume(const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
   [[nodiscard]] _LibvirtStorageVolume clone_storage_volume(_LibvirtStorageVolume volume, const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
