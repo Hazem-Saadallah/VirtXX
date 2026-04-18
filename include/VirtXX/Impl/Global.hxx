@@ -2,8 +2,10 @@
 
 #include <libvirt/virterror.h>
 
-void _SilentErrorHandler([[maybe_unused]] void *userData, [[maybe_unused]] virErrorPtr error);
-
-namespace Global {
-  void SilenceStderrReporting();
+namespace VirtXX {
+  namespace Impl {
+    namespace Global {
+      void SilenceStderrReporting();
+    }
+  }
 }

@@ -1,18 +1,22 @@
 #pragma once
 
-class _LibvirtConnection;
+namespace VirtXX {
+  namespace Impl {
+    class _LibvirtConnection;
 
-class _LibvirtConnectionCreationKey {
-  friend _LibvirtConnection;
+    class _LibvirtConnectionCreationKey {
+      friend _LibvirtConnection;
 
-private:
-  _LibvirtConnectionCreationKey() = default;
+    private:
+      _LibvirtConnectionCreationKey() = default;
 
-public:
-  _LibvirtConnectionCreationKey (_LibvirtConnectionCreationKey  &&) = default;
-  _LibvirtConnectionCreationKey (const _LibvirtConnectionCreationKey  &) = default;
-  _LibvirtConnectionCreationKey &operator=(_LibvirtConnectionCreationKey  &&) = default;
-  _LibvirtConnectionCreationKey &operator=(const _LibvirtConnectionCreationKey  &) = default;
-  ~_LibvirtConnectionCreationKey () = default;
-};
+    public:
+      _LibvirtConnectionCreationKey (_LibvirtConnectionCreationKey  &&) = default;
+      _LibvirtConnectionCreationKey (const _LibvirtConnectionCreationKey  &) = default;
+      _LibvirtConnectionCreationKey &operator=(_LibvirtConnectionCreationKey  &&) = default;
+      _LibvirtConnectionCreationKey &operator=(const _LibvirtConnectionCreationKey  &) = default;
+      ~_LibvirtConnectionCreationKey () = default;
+    };
 
+  }
+}

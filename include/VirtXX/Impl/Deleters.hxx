@@ -3,29 +3,33 @@
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 
-namespace Deleters {
-  class _LibvirtConnectionPtrDeleter {
-  public:
-    void operator()(virConnectPtr connection_ptr) const;
-  };
+namespace VirtXX {
+  namespace Impl {
+    namespace Deleters {
+      class _LibvirtConnectionPtrDeleter {
+      public:
+        void operator()(virConnectPtr connection_ptr) const;
+      };
 
-  class _LibvirtDomainPtrDeleter {
-  public:
-    void operator()(virDomainPtr domain_ptr) const;
-  };
+      class _LibvirtDomainPtrDeleter {
+      public:
+        void operator()(virDomainPtr domain_ptr) const;
+      };
 
-  class _LibvirtErrorPtrDeleter {
-  public:
-    void operator()(virErrorPtr error_ptr) const;
-  };
+      class _LibvirtErrorPtrDeleter {
+      public:
+        void operator()(virErrorPtr error_ptr) const;
+      };
 
-  class _LibvirtStoragePoolPtrDeleter {
-  public:
-    void operator()(virStoragePoolPtr storage_pool_ptr) const;
-  };
+      class _LibvirtStoragePoolPtrDeleter {
+      public:
+        void operator()(virStoragePoolPtr storage_pool_ptr) const;
+      };
 
-  class _LibvirtStorageVolumePtrDeleter {
-  public:
-    void operator()(virStorageVolPtr storage_volume_ptr) const;
-  };
+      class _LibvirtStorageVolumePtrDeleter {
+      public:
+        void operator()(virStorageVolPtr storage_volume_ptr) const;
+      };
+    }
+  }
 }

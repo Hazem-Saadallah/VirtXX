@@ -3,7 +3,7 @@
 #include <random>
 #include <VirtXX/Impl/Misc.hxx>
 
-std::string Misc::generate_random_string(std::size_t length, std::string prefix, std::string suffix) {
+std::string VirtXX::Impl::Misc::generate_random_string(std::size_t length, std::string prefix, std::string suffix) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<std::int32_t> dist(1, 9);

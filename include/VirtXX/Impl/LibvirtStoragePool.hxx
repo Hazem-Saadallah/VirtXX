@@ -1,70 +1,73 @@
 #pragma once
 
 #include <cmath>
-#include <cstddef>
 #include <vector>
 #include <libvirt/libvirt.h>
 #include <VirtXX/Impl/ErrorBlock.hxx>
 #include <VirtXX/Impl/LibvirtStorageVolume.hxx>
 #include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 
-class _LibvirtStoragePool {
-public:
-  enum class SizeType : std::uint8_t {
-    BYTE=0,
-    KIB,
-    MIB,
-    GIB,
-    TIB
-  };
+namespace VirtXX {
+  namespace Impl {
+    class _LibvirtStoragePool {
+    public:
+      enum class SizeType : std::uint8_t {
+        BYTE=0,
+        KIB,
+        MIB,
+        GIB,
+        TIB
+      };
 
-private:
-  _datatype::_LibvirtInternalStoragePoolPtr m_Handle;
-  mutable _ErrorBlock m_LastError;
+    private:
+      _datatype::_LibvirtInternalStoragePoolPtr m_Handle;
+      mutable _ErrorBlock m_LastError;
 
-  void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
+      void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
 
-public:
-  _LibvirtStoragePool() = default;
-  _LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
-  ~_LibvirtStoragePool();
-  _LibvirtStoragePool(_LibvirtStoragePool &&) noexcept = default;
-  _LibvirtStoragePool &operator=(_LibvirtStoragePool &&) noexcept = default;
-  _LibvirtStoragePool(const _LibvirtStoragePool &) = default;
-  _LibvirtStoragePool &operator=(const _LibvirtStoragePool &) = default;
+    public:
+      _LibvirtStoragePool() = default;
+      _LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
+      ~_LibvirtStoragePool();
+      _LibvirtStoragePool(_LibvirtStoragePool &&) noexcept = default;
+      _LibvirtStoragePool &operator=(_LibvirtStoragePool &&) noexcept = default;
+      _LibvirtStoragePool(const _LibvirtStoragePool &) = default;
+      _LibvirtStoragePool &operator=(const _LibvirtStoragePool &) = default;
 
-  explicit operator bool() const;
+      explicit operator bool() const;
 
-  [[nodiscard]] bool is_active();
-  void activate(std::vector<virStoragePoolCreateFlags> flags={});
-  void destroy();
-  void deactivate();
-  void set_activation(bool active);
-  [[nodiscard]] bool is_auto_start();
-  void set_auto_start(bool auto_start);
-  [[nodiscard]] bool is_persistent();
-  void make_persistent(std::vector<virStoragePoolBuildFlags> flags);
-  void undefine();
-  void refresh();
+      [[nodiscard]] bool is_active();
+      void activate(std::vector<virStoragePoolCreateFlags> flags={});
+      void destroy();
+      void deactivate();
+      void set_activation(bool active);
+      [[nodiscard]] bool is_auto_start();
+      void set_auto_start(bool auto_start);
+      [[nodiscard]] bool is_persistent();
+      void make_persistent(std::vector<virStoragePoolBuildFlags> flags);
+      void undefine();
+      void refresh();
 
-  [[nodiscard]] virStoragePoolPtr get_handle() const;
+      [[nodiscard]] virStoragePoolPtr get_handle() const;
 
-  [[nodiscard]] std::string get_name() const;
-  [[nodiscard]] std::string get_uuid_string() const;
-  [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
-  [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
+      [[nodiscard]] std::string get_name() const;
+      [[nodiscard]] std::string get_uuid_string() const;
+      [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
+      [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
 
-  [[nodiscard]] virStoragePoolInfo get_info() const;
-  [[nodiscard]] virStoragePoolState get_state() const;
-  [[nodiscard]] std::string  get_state_string() const;
-  [[nodiscard]] std::double_t get_capacity(SizeType size_type=SizeType::MIB) const;
-  [[nodiscard]] std::double_t get_allocated_space(SizeType size_type=SizeType::MIB) const;
-  [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB) const;
+      [[nodiscard]] virStoragePoolInfo get_info() const;
+      [[nodiscard]] virStoragePoolState get_state() const;
+      [[nodiscard]] std::string  get_state_string() const;
+      [[nodiscard]] std::double_t get_capacity(SizeType size_type=SizeType::MIB) const;
+      [[nodiscard]] std::double_t get_allocated_space(SizeType size_type=SizeType::MIB) const;
+      [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB) const;
 
-  [[nodiscard]] std::int32_t get_num_of_volumes() const;
-  [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name) const;
-  [[nodiscard]] _datatype::_StorageVolumeList get_volumes() const;
+      [[nodiscard]] std::int32_t get_num_of_volumes() const;
+      [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name) const;
+      [[nodiscard]] _datatype::_StorageVolumeList get_volumes() const;
 
-  [[nodiscard]] _LibvirtStorageVolume create_storage_volume(const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
-  [[nodiscard]] _LibvirtStorageVolume clone_storage_volume(_LibvirtStorageVolume volume, const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
-};
+      [[nodiscard]] _LibvirtStorageVolume create_storage_volume(const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
+      [[nodiscard]] _LibvirtStorageVolume clone_storage_volume(_LibvirtStorageVolume volume, const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
+    };
+  }
+}

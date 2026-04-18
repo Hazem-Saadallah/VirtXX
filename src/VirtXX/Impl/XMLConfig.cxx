@@ -26,7 +26,7 @@ const static std::string basic_storage_volume_xml = R"(
 )";
 
 
-std::string _XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
+std::string VirtXX::Impl::_XMLConfig::BasicStoragePool(std::string name, std::string target_path, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_pool.c_str());
   pugi::xml_parse_result result = document.load_string(basic_storage_pool_xml.c_str());
@@ -42,7 +42,7 @@ std::string _XMLConfig::BasicStoragePool(std::string name, std::string target_pa
   return str_val;
 }
 
-std::string _XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
+std::string VirtXX::Impl::_XMLConfig::BasicStorageVolume(std::string name, std::string capacity_unit, std::string capacity, std::string allocation, std::string target_format_type, std::string type) {
   pugi::xml_document document;
   // pugi::xml_parse_result result = document.load_string(basic_storage_volume.c_str());
   pugi::xml_parse_result result = document.load_file(basic_storage_volume_xml.c_str());

@@ -4,6 +4,4 @@
 
 void _SilentErrorHandler([[maybe_unused]] void *userData, [[maybe_unused]] virErrorPtr error) { }
 
-void Global::SilenceStderrReporting() {
-  virSetErrorFunc(NULL, _SilentErrorHandler);
-}
+void VirtXX::Impl::Global::SilenceStderrReporting() { virSetErrorFunc(NULL, _SilentErrorHandler); }
