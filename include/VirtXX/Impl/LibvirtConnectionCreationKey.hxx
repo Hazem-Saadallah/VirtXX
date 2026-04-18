@@ -2,20 +2,20 @@
 
 namespace VirtXX {
   namespace Impl {
-    class _LibvirtConnection;
+    class LibvirtConnection;
 
-    class _LibvirtConnectionCreationKey {
-      friend _LibvirtConnection;
+    class LibvirtConnectionCreationKey {
+      friend LibvirtConnection;
 
     private:
-      _LibvirtConnectionCreationKey() = default;
+      LibvirtConnectionCreationKey() = default;
 
     public:
-      _LibvirtConnectionCreationKey (_LibvirtConnectionCreationKey  &&) = default;
-      _LibvirtConnectionCreationKey (const _LibvirtConnectionCreationKey  &) = default;
-      _LibvirtConnectionCreationKey &operator=(_LibvirtConnectionCreationKey  &&) = default;
-      _LibvirtConnectionCreationKey &operator=(const _LibvirtConnectionCreationKey  &) = default;
-      ~_LibvirtConnectionCreationKey () = default;
+      LibvirtConnectionCreationKey (LibvirtConnectionCreationKey  &&) = default;
+      LibvirtConnectionCreationKey (const LibvirtConnectionCreationKey  &) = default;
+      LibvirtConnectionCreationKey &operator=(LibvirtConnectionCreationKey  &&) = default;
+      LibvirtConnectionCreationKey &operator=(const LibvirtConnectionCreationKey  &) = default;
+      ~LibvirtConnectionCreationKey () = default;
     };
 
   }

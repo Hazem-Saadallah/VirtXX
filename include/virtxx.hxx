@@ -9,17 +9,17 @@
 #include <VirtXX/Impl/Config/StorageVolumeConfig.hxx>
 
 namespace virtxx {
-  typedef VirtXX::Impl::_LibvirtConnection Connection;
-  typedef VirtXX::Impl::_LibvirtDomain Domain;
-  typedef VirtXX::Impl::_ErrorBlock Error;
-  typedef VirtXX::Impl::_LibvirtStoragePool StoragePool;
-  typedef VirtXX::Impl::_LibvirtStorageVolume StorageVolume;
+  typedef VirtXX::Impl::LibvirtConnection Connection;
+  typedef VirtXX::Impl::LibvirtDomain Domain;
+  typedef VirtXX::Impl::ErrorBlock Error;
+  typedef VirtXX::Impl::LibvirtStoragePool StoragePool;
+  typedef VirtXX::Impl::LibvirtStorageVolume StorageVolume;
 
-  typedef VirtXX::Impl::_datatype::_UUIDBytes UUIDBytes;
-  typedef VirtXX::Impl::_datatype::_DomainList DomainList;
-  typedef VirtXX::Impl::_datatype::_StoragePoolList StoragePoolList;
-  typedef VirtXX::Impl::_datatype::_StorageVolumeList StorageVolumeList;
-  typedef VirtXX::Impl::_datatype::ErrorCode_t ErrorCode;
+  typedef VirtXX::Impl::datatype::UUIDBytes UUIDBytes;
+  typedef VirtXX::Impl::datatype::DomainList DomainList;
+  typedef VirtXX::Impl::datatype::StoragePoolList StoragePoolList;
+  typedef VirtXX::Impl::datatype::StorageVolumeList StorageVolumeList;
+  typedef VirtXX::Impl::datatype::ErrorCode ErrorCode;
 
   typedef VirtXX::Config::Impl::StoragePoolConfig StoragePoolConfig;
   typedef VirtXX::Config::Impl::StorageVolumeConfig StorageVolumeConfig;

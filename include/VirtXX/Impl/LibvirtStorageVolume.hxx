@@ -10,24 +10,24 @@
 
 namespace VirtXX {
   namespace Impl {
-    class _LibvirtStorageVolume {
-    friend _LibvirtStoragePool;
+    class LibvirtStorageVolume {
+    friend LibvirtStoragePool;
 
     private:
-      _datatype::_LibvirtInternalStorageVolumePtr m_Handle;
-      _ErrorBlock m_LastError;
+      datatype::LibvirtInternalStorageVolumePtr m_Handle;
+      ErrorBlock m_LastError;
 
       virStorageVolPtr get_handle() const;
-      void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t);
+      void report_error(datatype::ErrorCode code, datatype::ErrorMsg);
 
     public:
-      _LibvirtStorageVolume(_LibvirtConnectionCreationKey, virStorageVolPtr storage_volume_ptr);
-      _LibvirtStorageVolume(_LibvirtStoragePoolCreationKey, virStorageVolPtr storage_volume_ptr);
-      ~_LibvirtStorageVolume();
-      _LibvirtStorageVolume(_LibvirtStorageVolume &&) noexcept = default;
-      _LibvirtStorageVolume &operator=(_LibvirtStorageVolume &&) noexcept = default;
-      _LibvirtStorageVolume(const _LibvirtStorageVolume &) = default;
-      _LibvirtStorageVolume &operator=(const _LibvirtStorageVolume &) = default;
+      LibvirtStorageVolume(LibvirtConnectionCreationKey, virStorageVolPtr storage_volume_ptr);
+      LibvirtStorageVolume(LibvirtStoragePoolCreationKey, virStorageVolPtr storage_volume_ptr);
+      ~LibvirtStorageVolume();
+      LibvirtStorageVolume(LibvirtStorageVolume &&) noexcept = default;
+      LibvirtStorageVolume &operator=(LibvirtStorageVolume &&) noexcept = default;
+      LibvirtStorageVolume(const LibvirtStorageVolume &) = default;
+      LibvirtStorageVolume &operator=(const LibvirtStorageVolume &) = default;
 
       explicit operator bool() const;
 

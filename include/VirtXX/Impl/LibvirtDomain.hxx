@@ -9,22 +9,22 @@
 
 namespace VirtXX {
   namespace Impl {
-    class _LibvirtConnection;
+    class LibvirtConnection;
 
-    class _LibvirtDomain {
+    class LibvirtDomain {
     private:
-      _datatype::_LibvirtInternalDomainPtr m_DomainPtr;
-      mutable _ErrorBlock m_LastError;
+      datatype::LibvirtInternalDomainPtr m_DomainPtr;
+      mutable ErrorBlock m_LastError;
 
-      void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
+      void report_error(datatype::ErrorCode code, datatype::ErrorMsg msg) const;
 
     public:
-      _LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, virDomainPtr domain_ptr);
-      ~_LibvirtDomain();
-      _LibvirtDomain(_LibvirtDomain &&) noexcept = default;
-      _LibvirtDomain &operator=(_LibvirtDomain &&) noexcept = default;
-      _LibvirtDomain(const _LibvirtDomain &) = default;
-      _LibvirtDomain &operator=(const _LibvirtDomain &) = default;
+      LibvirtDomain([[maybe_unused]] LibvirtConnectionCreationKey, virDomainPtr domain_ptr);
+      ~LibvirtDomain();
+      LibvirtDomain(LibvirtDomain &&) noexcept = default;
+      LibvirtDomain &operator=(LibvirtDomain &&) noexcept = default;
+      LibvirtDomain(const LibvirtDomain &) = default;
+      LibvirtDomain &operator=(const LibvirtDomain &) = default;
 
       explicit operator bool() const;
 
@@ -45,7 +45,7 @@ namespace VirtXX {
        * */
       [[nodiscard]] std::string get_name() const;
       [[nodiscard]] std::int32_t get_id() const;
-      [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
+      [[nodiscard]] datatype::UUIDBytes get_uuid() const;
       [[nodiscard]] std::string get_uuid_string() const;
       [[nodiscard]] std::string get_xml_config(std::vector<virDomainXMLFlags> flags={}) const;
       [[nodiscard]] virDomainState get_state() const;
@@ -53,7 +53,7 @@ namespace VirtXX {
       [[nodiscard]] std::int32_t get_status_reason() const;
       [[nodiscard]] virDomainInfo get_info() const;
 
-      [[nodiscard]] _ErrorBlock get_last_error() const;
+      [[nodiscard]] ErrorBlock get_last_error() const;
     };
   }
 }

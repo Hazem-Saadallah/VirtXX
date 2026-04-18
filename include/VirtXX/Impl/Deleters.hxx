@@ -6,27 +6,27 @@
 namespace VirtXX {
   namespace Impl {
     namespace Deleters {
-      class _LibvirtConnectionPtrDeleter {
+      class LibvirtConnectionPtrDeleter {
       public:
         void operator()(virConnectPtr connection_ptr) const;
       };
 
-      class _LibvirtDomainPtrDeleter {
+      class LibvirtDomainPtrDeleter {
       public:
         void operator()(virDomainPtr domain_ptr) const;
       };
 
-      class _LibvirtErrorPtrDeleter {
+      class LibvirtErrorPtrDeleter {
       public:
         void operator()(virErrorPtr error_ptr) const;
       };
 
-      class _LibvirtStoragePoolPtrDeleter {
+      class LibvirtStoragePoolPtrDeleter {
       public:
         void operator()(virStoragePoolPtr storage_pool_ptr) const;
       };
 
-      class _LibvirtStorageVolumePtrDeleter {
+      class LibvirtStorageVolumePtrDeleter {
       public:
         void operator()(virStorageVolPtr storage_volume_ptr) const;
       };

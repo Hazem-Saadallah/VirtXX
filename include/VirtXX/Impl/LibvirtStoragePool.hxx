@@ -9,7 +9,7 @@
 
 namespace VirtXX {
   namespace Impl {
-    class _LibvirtStoragePool {
+    class LibvirtStoragePool {
     public:
       enum class SizeType : std::uint8_t {
         BYTE=0,
@@ -20,19 +20,19 @@ namespace VirtXX {
       };
 
     private:
-      _datatype::_LibvirtInternalStoragePoolPtr m_Handle;
-      mutable _ErrorBlock m_LastError;
+      datatype::LibvirtInternalStoragePoolPtr m_Handle;
+      mutable ErrorBlock m_LastError;
 
-      void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
+      void report_error(datatype::ErrorCode code, datatype::ErrorMsg msg) const;
 
     public:
-      _LibvirtStoragePool() = default;
-      _LibvirtStoragePool(_LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
-      ~_LibvirtStoragePool();
-      _LibvirtStoragePool(_LibvirtStoragePool &&) noexcept = default;
-      _LibvirtStoragePool &operator=(_LibvirtStoragePool &&) noexcept = default;
-      _LibvirtStoragePool(const _LibvirtStoragePool &) = default;
-      _LibvirtStoragePool &operator=(const _LibvirtStoragePool &) = default;
+      LibvirtStoragePool() = default;
+      LibvirtStoragePool(LibvirtConnectionCreationKey, virStoragePoolPtr storage_pool_ptr);
+      ~LibvirtStoragePool();
+      LibvirtStoragePool(LibvirtStoragePool &&) noexcept = default;
+      LibvirtStoragePool &operator=(LibvirtStoragePool &&) noexcept = default;
+      LibvirtStoragePool(const LibvirtStoragePool &) = default;
+      LibvirtStoragePool &operator=(const LibvirtStoragePool &) = default;
 
       explicit operator bool() const;
 
@@ -52,7 +52,7 @@ namespace VirtXX {
 
       [[nodiscard]] std::string get_name() const;
       [[nodiscard]] std::string get_uuid_string() const;
-      [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
+      [[nodiscard]] datatype::UUIDBytes get_uuid() const;
       [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
 
       [[nodiscard]] virStoragePoolInfo get_info() const;
@@ -63,11 +63,11 @@ namespace VirtXX {
       [[nodiscard]] std::double_t get_available_space(SizeType size_type=SizeType::MIB) const;
 
       [[nodiscard]] std::int32_t get_num_of_volumes() const;
-      [[nodiscard]] _LibvirtStorageVolume get_volume_by_name(std::string name) const;
-      [[nodiscard]] _datatype::_StorageVolumeList get_volumes() const;
+      [[nodiscard]] LibvirtStorageVolume get_volume_by_name(std::string name) const;
+      [[nodiscard]] datatype::StorageVolumeList get_volumes() const;
 
-      [[nodiscard]] _LibvirtStorageVolume create_storage_volume(const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
-      [[nodiscard]] _LibvirtStorageVolume clone_storage_volume(_LibvirtStorageVolume volume, const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
+      [[nodiscard]] LibvirtStorageVolume create_storage_volume(const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
+      [[nodiscard]] LibvirtStorageVolume clone_storage_volume(LibvirtStorageVolume volume, const std::string& xml_config, std::vector<virStorageVolCreateFlags> flags={});
     };
   }
 }

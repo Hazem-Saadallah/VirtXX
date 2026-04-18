@@ -10,12 +10,12 @@
 
 namespace VirtXX {
   namespace Impl {
-    class _LibvirtDomain;
-    class _LibvirtStoragePool;
-    class _LibvirtStorageVolume;
+    class LibvirtDomain;
+    class LibvirtStoragePool;
+    class LibvirtStorageVolume;
 
-    namespace _datatype {
-      enum class ErrorCode_t : std::uint8_t {
+    namespace datatype {
+      enum class ErrorCode : std::uint8_t {
         NONE=0,
         NULL_CONNECTION_PTR,
         NULL_DOMAIN_PTR,
@@ -25,23 +25,23 @@ namespace VirtXX {
         DOMAIN_SHUTDOWN_SUCCESSFUL,
         DOMAIN_SHUTDOWN_FAILED,
       };
-      typedef std::string ErrorMsg_t;
+      typedef std::string ErrorMsg;
       // typedef std::pair<ErrorCode_t, ErrorMsg_t> Error_t;
 
       // typedef virErrorNumber LibvirtErrorCode_t;
       // typedef std::string LibvirtErrorMsg_t;
       // typedef std::pair<LibvirtErrorCode_t, LibvirtErrorMsg_t> LibvirtError_t;
 
-      typedef std::shared_ptr<virError> _LibvirtInternalErrorPtr;
-      typedef std::shared_ptr<virDomain> _LibvirtInternalDomainPtr;
-      typedef std::shared_ptr<virConnect> _LibvirtInternalConnectionPtr;
-      typedef std::shared_ptr<virStoragePool> _LibvirtInternalStoragePoolPtr;
-      typedef std::shared_ptr<virStorageVol> _LibvirtInternalStorageVolumePtr;
+      typedef std::shared_ptr<virError> LibvirtInternalErrorPtr;
+      typedef std::shared_ptr<virDomain> LibvirtInternalDomainPtr;
+      typedef std::shared_ptr<virConnect> LibvirtInternalConnectionPtr;
+      typedef std::shared_ptr<virStoragePool> LibvirtInternalStoragePoolPtr;
+      typedef std::shared_ptr<virStorageVol> LibvirtInternalStorageVolumePtr;
 
-      typedef std::vector<_LibvirtDomain> _DomainList;
-      typedef std::vector<_LibvirtStoragePool> _StoragePoolList;
-      typedef std::vector<_LibvirtStorageVolume> _StorageVolumeList;
-      typedef std::array<std::uint8_t, VIR_UUID_BUFLEN> _UUIDBytes;
+      typedef std::vector<LibvirtDomain> DomainList;
+      typedef std::vector<LibvirtStoragePool> StoragePoolList;
+      typedef std::vector<LibvirtStorageVolume> StorageVolumeList;
+      typedef std::array<std::uint8_t, VIR_UUID_BUFLEN> UUIDBytes;
     }
   }
 }
