@@ -14,13 +14,13 @@ _LibvirtDomain::_LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, v
 
 _LibvirtDomain::~_LibvirtDomain() = default;
 
-void _LibvirtDomain::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) {
+void _LibvirtDomain::report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const {
   m_LastError = _ErrorBlock(code, msg);
 }
 
 _LibvirtDomain::operator bool() const { return m_DomainPtr != nullptr; }
 
-virDomainPtr _LibvirtDomain::get_handle() { return m_DomainPtr.get(); }
+virDomainPtr _LibvirtDomain::get_handle() const { return m_DomainPtr.get(); }
 
 [[nodiscard]] _ErrorBlock _LibvirtDomain::get_last_error() const { return m_LastError; }
 
@@ -80,18 +80,18 @@ std::int8_t _LibvirtDomain::resume() {
   return res;
 }
 
-std::string _LibvirtDomain::get_name() {
+std::string _LibvirtDomain::get_name() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   return std::string(virDomainGetName(get_handle()));
 }
-std::int32_t _LibvirtDomain::get_id() {
+std::int32_t _LibvirtDomain::get_id() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
   std::uint32_t res = virDomainGetID(get_handle());
   REPORT_IF_INTERNEL_ERROR(res);
   return res;
 }
 
-_datatype::_UUIDBytes _LibvirtDomain::get_uuid() {
+_datatype::_UUIDBytes _LibvirtDomain::get_uuid() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(_datatype::_UUIDBytes());
   _datatype::_UUIDBytes buffer = {0};
   std::int8_t res = virDomainGetUUID(get_handle(), buffer.data());
@@ -99,7 +99,7 @@ _datatype::_UUIDBytes _LibvirtDomain::get_uuid() {
   return buffer;
 }
 
-std::string _LibvirtDomain::get_uuid_string() {
+std::string _LibvirtDomain::get_uuid_string() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   std::string buffer(VIR_UUID_STRING_BUFLEN, '\0');
   std::int8_t res = virDomainGetUUIDString(get_handle(), buffer.data());
@@ -107,7 +107,7 @@ std::string _LibvirtDomain::get_uuid_string() {
   return buffer;
 }
 
-std::string _LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags) {
+std::string _LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags) const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
   char *raw_xml = virDomainGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(),
                                                                     0, std::bit_or<std::uint8_t>()));
@@ -117,7 +117,7 @@ std::string _LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags)
   return res;
 }
 
-virDomainState _LibvirtDomain::get_status() {
+virDomainState _LibvirtDomain::get_status() const {
   virDomainState state = virDomainState();
   REPORT_AND_RETURN_IF_NULL_HANDLE(state);
   std::int8_t res = virDomainGetState(get_handle(), reinterpret_cast<int*>(&state), NULL, 0);
@@ -125,16 +125,33 @@ virDomainState _LibvirtDomain::get_status() {
   return state;
 }
 
-std::int32_t _LibvirtDomain::get_status_reason() {
+std::string _LibvirtDomain::get_status_string() const {
+  switch (get_status()) {
+    case VIR_DOMAIN_NOSTATE: return std::string("No State"); break;
+    case VIR_DOMAIN_RUNNING: return std::string("Running"); break;
+    case VIR_DOMAIN_BLOCKED: return std::string("Blocked"); break;
+    case VIR_DOMAIN_PAUSED: return std::string("Paused"); break;
+    case VIR_DOMAIN_SHUTDOWN: return std::string("Shutdown"); break;
+    case VIR_DOMAIN_SHUTOFF: return std::string("Shutoff"); break; 
+    case VIR_DOMAIN_CRASHED: return std::string("Crashed"); break; 
+    case VIR_DOMAIN_PMSUSPENDED: return std::string("Power-Management Suspend"); break;
+
+# ifdef VIR_ENUM_SENTINELS
+    case VIR_DOMAIN_LAST: return std::string("Last"); break;
+# endif
+  }
+  return std::string("Unknown");
+}
+
+std::int32_t _LibvirtDomain::get_status_reason() const {
   REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
   std::int32_t state=std::int32_t(), reason=std::int32_t();
   std::int8_t res = virDomainGetState(get_handle(), &state, &reason, 0);
   REPORT_IF_INTERNEL_ERROR(res);
   return reason;
-  virDomainGetInfo(get_handle(), NULL);
 }
 
-virDomainInfo _LibvirtDomain::get_info() {
+virDomainInfo _LibvirtDomain::get_info() const {
   virDomainInfo info;
   REPORT_AND_RETURN_IF_NULL_HANDLE(info);
   std::int8_t res = virDomainGetInfo(get_handle(), &info);

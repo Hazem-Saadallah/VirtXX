@@ -11,9 +11,9 @@ class _LibvirtConnection;
 class _LibvirtDomain {
 private:
   _datatype::_LibvirtInternalDomainPtr m_DomainPtr;
-  _ErrorBlock m_LastError;
+  mutable _ErrorBlock m_LastError;
 
-  void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg);
+  void report_error(_datatype::ErrorCode_t code, _datatype::ErrorMsg_t msg) const;
 
 public:
   _LibvirtDomain([[maybe_unused]] _LibvirtConnectionCreationKey, virDomainPtr domain_ptr);
@@ -25,7 +25,7 @@ public:
 
   explicit operator bool() const;
 
-  [[nodiscard]] virDomainPtr get_handle();
+  [[nodiscard]] virDomainPtr get_handle() const;
   /*
    * Lifecycle Management
    * */
@@ -40,14 +40,15 @@ public:
   /*
    * Information Retrieval
    * */
-  [[nodiscard]] std::string get_name();
-  [[nodiscard]] std::int32_t get_id();
-  [[nodiscard]] _datatype::_UUIDBytes get_uuid();
-  [[nodiscard]] std::string get_uuid_string();
-  [[nodiscard]] std::string get_xml_config(std::vector<virDomainXMLFlags> flags={});
-  [[nodiscard]] virDomainState get_status();
-  [[nodiscard]] std::int32_t get_status_reason();
-  [[nodiscard]] virDomainInfo get_info();
+  [[nodiscard]] std::string get_name() const;
+  [[nodiscard]] std::int32_t get_id() const;
+  [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
+  [[nodiscard]] std::string get_uuid_string() const;
+  [[nodiscard]] std::string get_xml_config(std::vector<virDomainXMLFlags> flags={}) const;
+  [[nodiscard]] virDomainState get_status() const;
+  [[nodiscard]] std::string get_status_string() const;
+  [[nodiscard]] std::int32_t get_status_reason() const;
+  [[nodiscard]] virDomainInfo get_info() const;
 
   [[nodiscard]] _ErrorBlock get_last_error() const;
 };
