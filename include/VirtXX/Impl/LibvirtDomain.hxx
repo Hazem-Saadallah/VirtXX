@@ -45,8 +45,8 @@ public:
   [[nodiscard]] _datatype::_UUIDBytes get_uuid() const;
   [[nodiscard]] std::string get_uuid_string() const;
   [[nodiscard]] std::string get_xml_config(std::vector<virDomainXMLFlags> flags={}) const;
-  [[nodiscard]] virDomainState get_status() const;
-  [[nodiscard]] std::string get_status_string() const;
+  [[nodiscard]] virDomainState get_state() const;
+  [[nodiscard]] std::string get_state_string() const;
   [[nodiscard]] std::int32_t get_status_reason() const;
   [[nodiscard]] virDomainInfo get_info() const;
 

@@ -117,7 +117,7 @@ std::string _LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags)
   return res;
 }
 
-virDomainState _LibvirtDomain::get_status() const {
+virDomainState _LibvirtDomain::get_state() const {
   virDomainState state = virDomainState();
   REPORT_AND_RETURN_IF_NULL_HANDLE(state);
   std::int8_t res = virDomainGetState(get_handle(), reinterpret_cast<int*>(&state), NULL, 0);
@@ -125,8 +125,8 @@ virDomainState _LibvirtDomain::get_status() const {
   return state;
 }
 
-std::string _LibvirtDomain::get_status_string() const {
-  switch (get_status()) {
+std::string _LibvirtDomain::get_state_string() const {
+  switch (get_state()) {
     case VIR_DOMAIN_NOSTATE: return std::string("No State"); break;
     case VIR_DOMAIN_RUNNING: return std::string("Running"); break;
     case VIR_DOMAIN_BLOCKED: return std::string("Blocked"); break;
