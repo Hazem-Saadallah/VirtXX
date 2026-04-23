@@ -66,6 +66,14 @@ VirtXX::Impl::LibvirtDomain VirtXX::Impl::LibvirtConnection::get_domain_by_name(
   return LibvirtDomain(LibvirtConnectionCreationKey{}, virDomainLookupByName(get_handle(), domain_name.c_str()));
 }
 
+VirtXX::Impl::LibvirtDomain VirtXX::Impl::LibvirtConnection::get_domain_by_uuid(const datatype::UUIDBytes& uuid) const {
+  return LibvirtDomain(LibvirtConnectionCreationKey{}, virDomainLookupByUUID(get_handle(), uuid.data()));
+}
+
+VirtXX::Impl::LibvirtDomain VirtXX::Impl::LibvirtConnection::get_domain_by_uuid_string(const std::string& uuid_str) const {
+  return LibvirtDomain(LibvirtConnectionCreationKey{}, virDomainLookupByUUIDString(get_handle(), uuid_str.data()));
+}
+
 std::int32_t VirtXX::Impl::LibvirtConnection::get_active_storage_pool_count() {
   return virConnectNumOfStoragePools(get_handle());
 }

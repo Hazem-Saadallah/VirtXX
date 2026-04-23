@@ -39,6 +39,8 @@ namespace VirtXX {
       [[nodiscard]] datatype::DomainList get_domains(std::vector<virConnectListAllDomainsFlags> flags={});
       [[nodiscard]] LibvirtDomain get_domain_by_id(std::int32_t id) const;
       [[nodiscard]] LibvirtDomain get_domain_by_name(const std::string& domain_name) const;
+      [[nodiscard]] LibvirtDomain get_domain_by_uuid(const datatype::UUIDBytes& uuid) const;
+      [[nodiscard]] LibvirtDomain get_domain_by_uuid_string(const std::string& uuid_str) const;
 
       [[nodiscard]] std::int32_t get_active_storage_pool_count();
       [[nodiscard]] std::int32_t get_defined_storage_pool_count();
