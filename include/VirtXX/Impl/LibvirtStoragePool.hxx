@@ -1,5 +1,6 @@
 #pragma once
 
+#include "VirtXX/Impl/Config/StoragePoolConfig.hxx"
 #include <cmath>
 #include <vector>
 #include <libvirt/libvirt.h>
@@ -53,7 +54,7 @@ namespace VirtXX {
       [[nodiscard]] std::string get_name() const;
       [[nodiscard]] std::string get_uuid_string() const;
       [[nodiscard]] datatype::UUIDBytes get_uuid() const;
-      [[nodiscard]] std::string get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
+      [[nodiscard]] VirtXX::Impl::Config::StoragePoolConfig get_xml_config(std::vector<virStorageXMLFlags> flags={}) const;
 
       [[nodiscard]] virStoragePoolInfo get_info() const;
       [[nodiscard]] virStoragePoolState get_state() const;

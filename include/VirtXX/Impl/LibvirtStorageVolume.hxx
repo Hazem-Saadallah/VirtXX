@@ -1,5 +1,6 @@
 #pragma once
 
+#include "VirtXX/Impl/Config/StorageVolumeConfig.hxx"
 #include <string>
 #include <libvirt/libvirt.h>
 #include <VirtXX/Impl/datatypes.hxx>
@@ -38,7 +39,7 @@ namespace VirtXX {
       [[nodiscard]] virStorageVolType get_type();
       [[nodiscard]] std::uint64_t get_capacity();
       [[nodiscard]] std::uint64_t get_allocation();
-      [[nodiscard]] std::string get_xml_config();
+      [[nodiscard]] VirtXX::Impl::Config::StorageVolumeConfig get_xml_config();
     };
   }
 }

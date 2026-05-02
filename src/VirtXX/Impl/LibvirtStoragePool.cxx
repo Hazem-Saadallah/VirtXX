@@ -112,14 +112,14 @@ VirtXX::Impl::datatype::UUIDBytes VirtXX::Impl::LibvirtStoragePool::get_uuid() c
   return buffer;
 }
 
-std::string VirtXX::Impl::LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> flags) const {
-  REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
-  char *raw_xml = virStoragePoolGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(),
-                                                                               0UL, std::bit_or<std::uint64_t>()));
-  if(!raw_xml) return std::string();
-  std::string config = std::string(raw_xml);
+VirtXX::Impl::Config::StoragePoolConfig VirtXX::Impl::LibvirtStoragePool::get_xml_config(std::vector<virStorageXMLFlags> flags) const {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(VirtXX::Impl::Config::StoragePoolConfig());
+  char *raw_xml = virStoragePoolGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(), 0UL, std::bit_or<std::uint64_t>()));
+  if(!raw_xml) return VirtXX::Impl::Config::StoragePoolConfig();
+  VirtXX::Impl::Config::StoragePoolConfig storage_pool_config;
+  storage_pool_config.load_string(std::string(raw_xml));
   std::free(raw_xml);
-  return config;
+  return storage_pool_config;
 }
 
 virStoragePoolInfo VirtXX::Impl::LibvirtStoragePool::get_info() const {

@@ -4,6 +4,7 @@
 #include <VirtXX/Impl/datatypes.hxx>
 #include <libvirt/libvirt.h>
 #include <VirtXX/Impl/ErrorBlock.hxx>
+#include <VirtXX/Impl/Config/DomainConfig.hxx>
 #include <VirtXX/Impl/LibvirtConnectionCreationKey.hxx>
 
 
@@ -47,7 +48,7 @@ namespace VirtXX {
       [[nodiscard]] std::int32_t get_id() const;
       [[nodiscard]] datatype::UUIDBytes get_uuid() const;
       [[nodiscard]] std::string get_uuid_string() const;
-      [[nodiscard]] std::string get_xml_config(std::vector<virDomainXMLFlags> flags={}) const;
+      [[nodiscard]] VirtXX::Impl::Config::DomainConfig get_xml_config(std::vector<virDomainXMLFlags> flags={}) const;
       [[nodiscard]] virDomainState get_state() const;
       [[nodiscard]] std::string get_state_string() const;
       [[nodiscard]] std::int32_t get_status_reason() const;

@@ -107,14 +107,14 @@ std::string VirtXX::Impl::LibvirtDomain::get_uuid_string() const {
   return buffer;
 }
 
-std::string VirtXX::Impl::LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags) const {
-  REPORT_AND_RETURN_IF_NULL_HANDLE(std::string());
-  char *raw_xml = virDomainGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(),
-                                                                    0, std::bit_or<std::uint8_t>()));
-  if(!raw_xml) return std::string();
-  std::string res = std::string(raw_xml);
+VirtXX::Impl::Config::DomainConfig VirtXX::Impl::LibvirtDomain::get_xml_config(std::vector<virDomainXMLFlags> flags) const {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(VirtXX::Impl::Config::DomainConfig());
+  char *raw_xml = virDomainGetXMLDesc(get_handle(), std::accumulate(flags.begin(), flags.end(), 0, std::bit_or<std::uint8_t>()));
+  if(!raw_xml) return VirtXX::Impl::Config::DomainConfig();
+  VirtXX::Impl::Config::DomainConfig domain_config;
+  domain_config.load_string(std::string(raw_xml));
   std::free(raw_xml);
-  return res;
+  return domain_config;
 }
 
 virDomainState VirtXX::Impl::LibvirtDomain::get_state() const {

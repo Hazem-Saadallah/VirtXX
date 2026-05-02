@@ -1,6 +1,5 @@
 #include <VirtXX/Impl/Config/Datatype.hxx>
-
-std::string VirtXX::Config::Impl::Datatype::get_storage_pool_type_string(Config::Impl::Datatype::StoragePoolType type) {
+std::string VirtXX::Impl::Config::Datatype::get_storage_pool_type_string(StoragePoolType type) {
   switch (type) {
     case StoragePoolType::DIRECTORY: return std::string("dir"); break;
     case StoragePoolType::FILESYSTEM: return std::string("fs"); break;
@@ -21,7 +20,7 @@ std::string VirtXX::Config::Impl::Datatype::get_storage_pool_type_string(Config:
   return std::string("");
 }
 
-std::string VirtXX::Config::Impl::Datatype::get_storage_volume_type_string(Config::Impl::Datatype::StorageVolumeType type) {
+std::string VirtXX::Impl::Config::Datatype::get_storage_volume_type_string(StorageVolumeType type) {
   switch (type) {
     case StorageVolumeType::FILE: return std::string("file"); break;
     case StorageVolumeType::BLOCK: return std::string("block"); break;
@@ -33,7 +32,7 @@ std::string VirtXX::Config::Impl::Datatype::get_storage_volume_type_string(Confi
   return std::string();
 }
 
-std::string VirtXX::Config::Impl::Datatype::get_storage_unit_string(Config::Impl::Datatype::StorageUnit unit) {
+std::string VirtXX::Impl::Config::Datatype::get_storage_unit_string(StorageUnit unit) {
   switch (unit) {
     case StorageUnit::BYTES: return std::string("bytes"); break;
     case StorageUnit::B: return std::string("B"); break;
@@ -59,7 +58,7 @@ std::string VirtXX::Config::Impl::Datatype::get_storage_unit_string(Config::Impl
   return std::string();
 }
 
-std::string VirtXX::Config::Impl::Datatype::get_file_format_type_string(Config::Impl::Datatype::FileFormatType format_type) {
+std::string VirtXX::Impl::Config::Datatype::get_file_format_type_string(FileFormatType format_type) {
   switch (format_type) {
     case FileFormatType::RAW: return std::string("raw"); break;
     case FileFormatType::QCOW2: return std::string("qcow2"); break;
@@ -71,6 +70,23 @@ std::string VirtXX::Config::Impl::Datatype::get_file_format_type_string(Config::
     case FileFormatType::BOCHS: return std::string("bochs"); break;
     case FileFormatType::CLOOP: return std::string("cloop"); break;
     case FileFormatType::DMG: return std::string("dmg"); break;
+  }
+  return std::string();
+}
+
+std::string VirtXX::Impl::Config::Datatype::get_domain_type_string(DomainType domain_type) {
+  switch (domain_type) {
+    case DomainType::KVM: return std::string("kvm"); break;
+    case DomainType::QEMU: return std::string("qemu"); break;
+    case DomainType::LXC: return std::string("lxc"); break;
+    case DomainType::XEN: return std::string("xen"); break;
+    case DomainType::BHYVE: return std::string("bhyve"); break;
+    case DomainType::HVF: return std::string("hvf"); break;
+    case DomainType::VBOX: return std::string("vbox"); break;
+    case DomainType::VMWARE: return std::string("vmware"); break;
+    case DomainType::VZ: return std::string("vz"); break;
+    case DomainType::UML: return std::string("uml"); break;
+    case DomainType::POWERVM: return std::string("powervm"); break;
   }
   return std::string();
 }

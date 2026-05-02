@@ -19,9 +19,12 @@ set(VIRTXX_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Misc.cxx
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Base/BaseConfig.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/DomainConfig.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/StoragePoolConfig.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/StorageVolumeConfig.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Datatype.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Value.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Config/Document.cxx
 )
 set(COMMON_LIBS
   PkgConfig::LIBVIRT
