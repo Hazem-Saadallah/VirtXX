@@ -3,9 +3,9 @@
 #include <libvirt/virterror.h>
 
 namespace VirtXX {
-  namespace Impl {
-    namespace Global {
-      void SilenceStderrReporting();
-    }
-  }
-}
+namespace Impl {
+namespace Global {
+void SilenceStderrReporting();
+} /* Global */
+} /* Impl */
+} /* VirtXX */

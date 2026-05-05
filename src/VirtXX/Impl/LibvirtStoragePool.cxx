@@ -150,17 +150,17 @@ std::string VirtXX::Impl::LibvirtStoragePool::get_state_string() const {
   return std::string("Unknown");
 }
 
-std::double_t VirtXX::Impl::LibvirtStoragePool::get_capacity(SizeType size_type) const {
+std::double_t VirtXX::Impl::LibvirtStoragePool::get_capacity(datatype::SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().capacity)/div;
 }
 
-std::double_t VirtXX::Impl::LibvirtStoragePool::get_allocated_space(SizeType size_type) const {
+std::double_t VirtXX::Impl::LibvirtStoragePool::get_allocated_space(datatype::SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().allocation)/div;
 }
 
-std::double_t VirtXX::Impl::LibvirtStoragePool::get_available_space(SizeType size_type) const {
+std::double_t VirtXX::Impl::LibvirtStoragePool::get_available_space(datatype::SizeType size_type) const {
   std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_type));
   return static_cast<std::double_t>(get_info().available)/div;
 }

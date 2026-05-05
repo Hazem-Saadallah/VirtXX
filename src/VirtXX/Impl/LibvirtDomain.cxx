@@ -1,3 +1,5 @@
+#include <cmath>
+#include <cstdint>
 #include <string>
 #include <numeric>
 #include <functional>
@@ -151,10 +153,42 @@ std::int32_t VirtXX::Impl::LibvirtDomain::get_status_reason() const {
   return reason;
 }
 
+std::int64_t VirtXX::Impl::LibvirtDomain::get_vcpu(std::vector<virDomainVcpuFlags> flags) const {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
+  std::uint64_t res = virDomainGetVcpusFlags(get_handle(), std::accumulate(flags.begin(), flags.end(), static_cast<std::uint8_t>(VIR_DOMAIN_VCPU_CURRENT), std::bit_or<std::uint8_t>()));
+  REPORT_IF_INTERNEL_ERROR(res);
+  return res;
+}
+
+std::double_t VirtXX::Impl::LibvirtDomain::get_max_memory(datatype::SizeType size_unit) const {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
+  std::uint64_t result = virDomainGetMaxMemory(get_handle())*1024ULL; /* Size in Bytes */
+  if(static_cast<std::int32_t>(result) == 0)
+    report_error(datatype::ErrorCode::LIBVIRT_INTERNAL_ERROR, ErrMsg::libvirt_internal_error);
+
+  std::double_t div = std::powf(1024, static_cast<std::int32_t>(size_unit));
+  return static_cast<std::double_t>(result)/div;
+}
+
 virDomainInfo VirtXX::Impl::LibvirtDomain::get_info() const {
   virDomainInfo info;
   REPORT_AND_RETURN_IF_NULL_HANDLE(info);
   std::int8_t res = virDomainGetInfo(get_handle(), &info);
   REPORT_IF_INTERNEL_ERROR(res);
   return info;
+}
+
+std::int8_t VirtXX::Impl::LibvirtDomain::set_vcpu(std::uint32_t nvcpus, std::vector<virDomainVcpuFlags> flags) {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
+  std::uint32_t result = virDomainSetVcpusFlags(get_handle(), nvcpus, std::accumulate(flags.begin(), flags.end(), static_cast<std::uint8_t>(VIR_DOMAIN_VCPU_CURRENT), std::bit_or<std::uint8_t>()));
+  REPORT_IF_INTERNEL_ERROR(result);
+  return result;
+}
+
+std::int8_t VirtXX::Impl::LibvirtDomain::set_memory(std::uint64_t memory, datatype::SizeType size_unit, std::vector<virDomainMemoryModFlags> flags) {
+  REPORT_AND_RETURN_IF_NULL_HANDLE(-1);
+  std::uint64_t size_bytes = memory * std::powl(1024, static_cast<std::uint8_t>(size_unit));
+  std::int8_t result = virDomainSetMemoryFlags(get_handle(), size_bytes/1024, std::accumulate(flags.begin(), flags.end(), static_cast<std::uint8_t>(VIR_DOMAIN_MEM_CURRENT), std::bit_or<std::uint8_t>()));
+  REPORT_IF_INTERNEL_ERROR(result);
+  return result;
 }
