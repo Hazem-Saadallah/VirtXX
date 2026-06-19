@@ -6,3 +6,4 @@ void VirtXX::Impl::Deleters::LibvirtDomainPtrDeleter::operator()(virDomainPtr do
 void VirtXX::Impl::Deleters::LibvirtErrorPtrDeleter::operator()(virErrorPtr error_ptr) const { virFreeError(error_ptr); }
 void VirtXX::Impl::Deleters::LibvirtStoragePoolPtrDeleter::operator()(virStoragePoolPtr storage_pool_ptr) const { virStoragePoolFree(storage_pool_ptr); }
 void VirtXX::Impl::Deleters::LibvirtStorageVolumePtrDeleter::operator()(virStorageVolPtr storage_volume_ptr) const { virStorageVolFree(storage_volume_ptr); }
+void VirtXX::Impl::Deleters::LibvirtStreamPtrDeleter::operator()(virStreamPtr stream_ptr) const { virStreamFree(stream_ptr); }

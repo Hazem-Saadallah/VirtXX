@@ -1,3 +1,5 @@
+#include "VirtXX/Impl/LibvirtDomainConsole.hxx"
+#include "VirtXX/Impl/LibvirtDomainCreationKey.hxx"
 #include <cmath>
 #include <cstdint>
 #include <string>
@@ -25,6 +27,10 @@ VirtXX::Impl::LibvirtDomain::operator bool() const { return m_DomainPtr != nullp
 virDomainPtr VirtXX::Impl::LibvirtDomain::get_handle() const { return m_DomainPtr.get(); }
 
 [[nodiscard]] VirtXX::Impl::ErrorBlock VirtXX::Impl::LibvirtDomain::get_last_error() const { return m_LastError; }
+
+[[nodiscard]] VirtXX::Impl::LibvirtDomainConsole VirtXX::Impl::LibvirtDomain::get_domain_console() const {
+  return VirtXX::Impl::LibvirtDomainConsole(LibvirtDomainCreationKey{}, get_handle());
+}
 
 std::int8_t VirtXX::Impl::LibvirtDomain::start(std::vector<virDomainCreateFlags> flags) {
   REPORT_AND_RETURN_IF_NULL_HANDLE(-1);

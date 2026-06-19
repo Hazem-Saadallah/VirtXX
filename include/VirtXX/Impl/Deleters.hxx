@@ -30,6 +30,11 @@ class LibvirtStorageVolumePtrDeleter {
 public:
   void operator()(virStorageVolPtr storage_volume_ptr) const;
 };
+
+class LibvirtStreamPtrDeleter {
+  public:
+    void operator()(virStreamPtr stream_ptr) const;
+};
 } /* Deleters */
 } /* Impl */
 } /* VirtXX */

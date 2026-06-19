@@ -21,6 +21,7 @@ typedef VirtXX::Impl::datatype::StoragePoolList StoragePoolList;
 typedef VirtXX::Impl::datatype::StorageVolumeList StorageVolumeList;
 typedef VirtXX::Impl::datatype::ErrorCode ErrorCode;
 typedef VirtXX::Impl::datatype::SizeType SizeType;
+typedef VirtXX::Impl::datatype::LibvirtInternalErrorPtr LibvirtErrorPtr;
 
 namespace XMLConfig = VirtXX::Impl::XMLConfig;
 namespace Global = VirtXX::Impl::Global;

@@ -40,6 +40,7 @@ typedef std::shared_ptr<virDomain> LibvirtInternalDomainPtr;
 typedef std::shared_ptr<virConnect> LibvirtInternalConnectionPtr;
 typedef std::shared_ptr<virStoragePool> LibvirtInternalStoragePoolPtr;
 typedef std::shared_ptr<virStorageVol> LibvirtInternalStorageVolumePtr;
+typedef std::shared_ptr<virStream> LibvirtInternalStreamPtr;
 
 typedef std::vector<LibvirtDomain> DomainList;
 typedef std::vector<LibvirtStoragePool> StoragePoolList;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "VirtXX/Impl/LibvirtDomainConsole.hxx"
 #include <vector>
 #include <VirtXX/Impl/datatypes.hxx>
 #include <libvirt/libvirt.h>
@@ -57,6 +58,8 @@ public:
   [[nodiscard]] virDomainInfo get_info() const;
 
   [[nodiscard]] ErrorBlock get_last_error() const;
+
+  [[nodiscard]] LibvirtDomainConsole get_domain_console() const;
 
   /*
    * Setters
