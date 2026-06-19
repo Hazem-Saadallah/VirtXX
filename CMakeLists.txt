@@ -12,6 +12,7 @@ set(VIRTXX_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtDomain.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtStoragePool.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtStorageVolume.cxx
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/LibvirtDomainConsole.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/Deleters.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/ErrorBlock.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/src/VirtXX/Impl/XMLConfig.cxx
